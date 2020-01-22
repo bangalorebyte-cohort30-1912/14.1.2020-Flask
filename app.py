@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
+import json
 
 engine = create_engine('sqlite:///temp.db', echo=True,
                        connect_args={'check_same_thread': False})
@@ -47,6 +48,18 @@ def comment():
         return render_template('comment.html', COMMENTS=comment_list)
     elif request.method == "GET":
         return render_template('comment.html', COMMENTS=comment_list)
+
+@app.route('/api/comments')
+def commentlist():
+    comment_list = session.query(Comments).all()[::-1]
+    comments_list = []
+    comment_dict = {}
+    for comment in comment_list:
+        comment_dict['id'] = comment.id
+        comment_dict['name'] = comment.name
+        comment_dict['comment'] = comment.comment_text
+        comments_list.append(comment_dict)
+    return json.dumps(comments_list)
 
 
 
