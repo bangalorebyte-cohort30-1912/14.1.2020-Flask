@@ -15,7 +15,7 @@
 
 <body>
     <div class="mx-auto mt-5" style="width: 600px;">
-        <h1>Hello, {{ COMMENTS[-1][0] }}!</h1>
+        <h1>Hello, {{ COMMENTS[-1].name }}!</h1>
 
         <p>Welcome to my portfolio</p>
         <p>Please share your thoughts here..</p>
@@ -45,9 +45,9 @@
         <h1 class="display-4">Comments</h1>
         {% for comment in COMMENTS %}
         <div class="card bg-light mb-3">
-            <div class="card-header">{{ comment[0] }}</div>
+            <div class="card-header">{{ comment.name }}</div>
             <div class="card-body">
-                <p class="card-text">{{ comment[1] }}</p>
+                <p class="card-text">{{ comment.comment_text }}</p>
             </div>
         </div>
         {% endfor %}
